@@ -40,17 +40,21 @@ private:
 private:
     User *get_user(std::string &username);
     User *get_user(sockaddr_in addr);
+    Channel *get_channel(std::string channel_name);
 
 public:
     Server(std::string ip_address, int port);
     void Start_Server();
     void Initalize_Channels();
+    void print_all_channel();
 
     ~Server();
 
 private:
     void process(std::string input, sockaddr_in address);
     void send_message(std::string &message, sockaddr_in address);
+    void send_message(std::string message, sockaddr_in address);
+
     void send_message(std::string &message, User user);
     void broadcast_message(std::string &message);
 };

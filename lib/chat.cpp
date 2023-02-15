@@ -70,10 +70,12 @@ std::vector<std::string> split(std::string s, std::string delimiter)
 Message create_message_from_line(std::string &line)
 {
     std::vector<std::string> items = split(line, "<<>>");
-    std::string author = items[0].substr(1, items[0].length() - 1);
-    std::string content = items[1].substr(1, items[1].length() - 1);
+    // std::cout << items[0] << "\t" << items[1] << std::endl;
+    std::string author = items[0].substr(1, items[0].length() - 2);
+    std::string content = items[1].substr(1, items[1].length() - 2);
 
     User auth(author);
+    std::cout << content << std::endl;
     return {auth, content};
 }
 
@@ -84,7 +86,16 @@ void Channel::load_messages()
     std::ifstream file(m_storage_file);
     while (getline(file, line))
     {
+        std::cout << line << std::endl;
         messages.push_back(create_message_from_line(line));
     }
     file.close();
+}
+void Channel::print_chat_log()
+{
+    for (const Message &mess : messages)
+    {
+        std::cout << "\t[MESSAGE] AUTHOR: " << mess.author.user_name << "\n"
+                  << "\t\tCONTENT: " << mess.content << std::endl;
+    }
 }

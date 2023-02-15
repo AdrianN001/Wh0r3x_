@@ -40,6 +40,9 @@ public:
 private:
     void write_chat(Message &new_message);
     void limit_chat();
+
+public:
+    void print_chat_log();
 };
 
 #include "message.h"

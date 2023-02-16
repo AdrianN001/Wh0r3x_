@@ -37,7 +37,7 @@ void Channel::write_chat(Message &new_message)
     std::ofstream outfile;
 
     outfile.open(m_storage_file, std::ios_base::app); // append instead of overwrite
-    outfile << new_message.export_message_as_raw();
+    outfile << new_message.export_message_as_raw() << "\r\n";
 
     outfile.close();
 }

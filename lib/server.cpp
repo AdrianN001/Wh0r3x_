@@ -78,8 +78,7 @@ void Server::process(std::string input, sockaddr_in address)
     }
     else if (input.substr(0, 8) == "$leaving")
     {
-        std::string username = input.substr(9, input.length());
-        std::cout << "[*] User left: " << username << '\n';
+        std::cout << "[*] User left: " << get_user(address)->user_name << '\n';
         Remove_User(address);
     }
     else if (input.substr(0, 8) == "$message")
@@ -93,6 +92,10 @@ void Server::process(std::string input, sockaddr_in address)
         if (author->active_channel->channel_name != HOME_CHAT)
         {
             author->active_channel->add_message(*author, message);
+
+            std::string client_side = "$message_client " + author->user_name + " " + message;
+
+            broadcast_message(client_side);
         }
     }
     else if (input.substr(0, 5) == "$join")
@@ -109,6 +112,7 @@ void Server::process(std::string input, sockaddr_in address)
         }
         else
         {
+            std::cout << "{*} JOIN: " << author->user_name << " joined to " << new_channel->channel_name << std::endl;
             author->active_channel = get_channel(channel_name);
         }
     }

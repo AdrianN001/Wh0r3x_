@@ -178,7 +178,7 @@ void Server::broadcast_message(std::string &message)
 }
 User *Server::get_user(std::string &username)
 {
-    for (User &user : m_Active_user)
+    for (const User &user : m_Active_user)
     {
         if (user.user_name == username)
         {
@@ -189,7 +189,7 @@ User *Server::get_user(std::string &username)
 }
 User *Server::get_user(sockaddr_in addr)
 {
-    for (User &user : m_Active_user)
+    for (const User &user : m_Active_user)
     {
         if (user.get_ip_address() == inet_ntoa(addr.sin_addr))
         {
@@ -201,7 +201,7 @@ User *Server::get_user(sockaddr_in addr)
 
 Channel *Server::get_channel(std::string channel_name)
 {
-    for (Channel &channel : m_Channels)
+    for (const Channel &channel : m_Channels)
     {
         if (channel.channel_name == "home")
         {

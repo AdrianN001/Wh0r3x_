@@ -13,12 +13,15 @@ public:
 public:
     User(std::string u_n) : user_name(u_n) {}                                                         // loading from messages
     User(std::string uN, sockaddr_in addr) : user_name(uN), address(addr), active_channel(nullptr) {} // at the point of creating the user isnt connected to any channel
-    User(const User &other) = default;                                                                // copy constructor
+    User(const User &other) = default;                                                                // copy constructor NOT GOOD TO SHALLOW COPY A POINTER
 public:
     std::string get_ip_address();
 
 public:
     void change_channel(Channel *new_active_chat);
+
+private:
+    ~User();
 };
 
 #include "chat.h"

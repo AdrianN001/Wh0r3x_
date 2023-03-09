@@ -9,3 +9,8 @@ std::string User::get_ip_address()
 {
     return inet_ntoa(address.sin_addr);
 }
+
+User::~User()
+{
+    delete active_channel;
+}
